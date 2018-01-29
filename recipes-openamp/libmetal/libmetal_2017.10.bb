@@ -1,5 +1,5 @@
 SRCBRANCH ?= "master"
-SRCREV = "962bc1fe8df758bfea0fe831f0c1192e1f6045b8"
+SRCREV = "93c396de7ddcf446a0d6b247004bba8a01a335ee"
 
 include libmetal.inc
 
