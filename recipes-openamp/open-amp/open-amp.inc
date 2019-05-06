@@ -7,7 +7,7 @@ SECTION = "libs"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM ?= "file://LICENSE.md;md5=a8d8cf662ef6bf9936a1e1413585ecbf"
 
-REPO ?= "git://github.com/OpenAMP/open-amp.git;protocol=https"
+REPO ?= "git://github.com/Xilinx/open-amp.git;protocol=https"
 BRANCH ?= "master"
 
 # Sources, by default allow for the use of SRCREV pointing to orphaned tags/commits
