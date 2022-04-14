@@ -1,6 +1,6 @@
 require ${LAYER_PATH_openamp-layer}/recipes-openamp/libmetal/libmetal.inc
 
-SRCREV = "7e6ac3f659724204fd5917952fafb74478c39e43"
+SRCREV = "c014e1eacd0164a44336ff727fe2e91aa6c062b6"
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 
@@ -9,7 +9,7 @@ SRC_URI:armv7r:xilinx-standalone = "git://gitenterprise.xilinx.com/OpenAMP/libme
 OECMAKE_SOURCEPATH = "${S}/"
 PROVIDES:armv7r:xilinx-standalone = "libmetal "
 DEPENDS:armv7r:xilinx-standalone += " libxil scugic doxygen-native xilstandalone"
-inherit cmake
+inherit python3native pkgconfig cmake yocto-cmake-translation
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=1ff609e96fc79b87da48a837cbe5db33"
 
@@ -41,19 +41,11 @@ def get_cross_prefix(oe_cmake_c_compiler):
 
 LIBMETAL_CROSS_PREFIX:armv7r:xilinx-standalone = "${@get_cross_prefix(d.getVar('OECMAKE_C_COMPILER'))}"
 
-def get_libmetal_machine(soc_family):
-  if soc_family in ['versal']:
-    return 'zynqmp_r5'
-  return ''
-
-
-LIBMETAL_MACHINE:armv7r:xilinx-standalone = "${@get_libmetal_machine(d.getVar('SOC_FAMILY'))}"
-
 cmake_do_generate_toolchain_file:armv7r:xilinx-standalone:append() {
     cat >> ${WORKDIR}/toolchain.cmake <<EOF
     set( CMAKE_SYSTEM_PROCESSOR "${TRANSLATED_TARGET_ARCH}" )
-    set( MACHINE "${LIBMETAL_MACHINE}" )
     set( CMAKE_MACHINE "${LIBMETAL_CMAKE_MACHINE}" )
+    set( MACHINE "zynqmp_r5" )
     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ")
     SET(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
     set( CMAKE_SYSTEM_NAME "Generic")
