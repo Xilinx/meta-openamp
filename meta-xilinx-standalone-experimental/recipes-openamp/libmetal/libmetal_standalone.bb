@@ -24,6 +24,8 @@ EXTRA_OECMAKE:armv7r:xilinx-standalone = " \
 
 ALLOW_EMPTY:${PN}-demos = "1"
 
+PARALLEL_MAKE = "-j 1"
+
 FILES:${PN}-demos:armv7r:xilinx-standalone = " \
     ${bindir}/libmetal_* \
     ${bindir}/*ocm_demo.elf \
