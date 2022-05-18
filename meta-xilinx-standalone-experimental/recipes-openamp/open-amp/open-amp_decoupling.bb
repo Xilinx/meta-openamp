@@ -49,8 +49,8 @@ do_install:append () {
 FILESEXTRAPATHS:append := ":${THISDIR}/overlays"
 SRC_URI:append:zynqmp = "  file://openamp-overlay-zynqmp.yaml "
 SRC_URI:append:versal = "  file://openamp-overlay-versal.yaml "
-OVERLAY:zynqmp ?= "${S}/../openamp-overlay-zynqmp.yaml"
-OVERLAY:versal ?= "${S}/../openamp-overlay-versal.yaml"
+OPENAMP_OVERLAY:zynqmp ?= "${S}/../openamp-overlay-zynqmp.yaml"
+OPENAMP_OVERLAY:versal ?= "${S}/../openamp-overlay-versal.yaml"
 
 # We need the deployed output
 do_configure[depends] += " lopper-native:do_install"
@@ -76,7 +76,7 @@ do_run_lopper() {
     cd ${WORKDIR}
 
     lopper -f -v --enhanced  --permissive \
-    -i ${OVERLAY}                         \
+    -i ${OPENAMP_OVERLAY}		  \
     -i ${LOPS_DIR}/lop-load.dts           \
     -i ${LOPS_DIR}/lop-xlate-yaml.dts     \
     ${OPENAMP_LOPPER_INPUTS}              \
