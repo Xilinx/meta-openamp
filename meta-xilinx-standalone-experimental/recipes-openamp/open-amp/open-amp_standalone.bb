@@ -15,8 +15,8 @@ FILESEXTRAPATHS:append := ":${THISDIR}/overlays"
 
 SRC_URI:append:zynqmp = " file://openamp-overlay-zynqmp.yaml "
 SRC_URI:append:versal = " file://openamp-overlay-versal.yaml "
-OVERLAY:zynqmp ?= "${S}/../openamp-overlay-zynqmp.yaml"
-OVERLAY:versal ?= "${S}/../openamp-overlay-versal.yaml"
+OPENAMP_OVERLAY:zynqmp ?= "${S}/../openamp-overlay-zynqmp.yaml"
+OPENAMP_OVERLAY:versal ?= "${S}/../openamp-overlay-versal.yaml"
 
 inherit cmake deploy python3native
 # We need the deployed output
@@ -67,7 +67,7 @@ INHIBIT_PACKAGE_DEBUG_SPLIT:armv7r:xilinx-standalone = '1'
 PACKAGE_MINIDEBUGINFO:armv7r:xilinx-standalone = '1'
 
 OPENAMP_LOPPER_INPUTS:armv7r:xilinx-standalone  = " \
-    -i ${OVERLAY} \
+    -i ${OPENAMP_OVERLAY} \
     -i ${LOPS_DIR}/lop-load.dts \
     -i ${LOPS_DIR}/lop-xlate-yaml.dts \
     -i ${LOPS_DIR}/lop-r5-imux.dts \
