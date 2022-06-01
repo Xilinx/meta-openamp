@@ -14,7 +14,11 @@ IMAGE_INSTALL += " \
     open-amp \
     "
 
-#IMAGE_INSTALL:append:zynqmp += " kernel-module-zynqmp-r5-remoteproc"
-#IMAGE_INSTALL:append:zynq += " kernel-module-zynq-remoteproc"
+IMAGE_INSTALL:append:zynqmp = " kernel-module-zynqmp-r5-remoteproc \
+                                packagegroup-petalinux-openamp "
+IMAGE_INSTALL:append:versal = " kernel-module-zynqmp-r5-remoteproc \
+                                packagegroup-petalinux-openamp "
+IMAGE_INSTALL:append:zynq = " kernel-module-zynq-remoteproc"
 
+IMAGE_INSTALL:append = " openssh openssh-sshd openssh-sftp openssh-sftp-server"
 IMAGE_LINGUAS=""
