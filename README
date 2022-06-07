@@ -3,6 +3,10 @@ meta-openamp
 
 This layer provides support for building libmetal and OpenAMP libraries.
 
+The layer is capable of automatically adding the openamp.dtsi nodes to the
+device-tree files.  This is disabled by default as it does not work in all
+cases.  To enable, in your local.conf, set: ENABLE_OPENAMP_DTSI = "1"
+
 Dependencies
 ------------
 This layer depends on:
