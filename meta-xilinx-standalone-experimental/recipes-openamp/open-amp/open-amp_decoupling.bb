@@ -86,6 +86,7 @@ do_run_lopper() {
     cd -
 }
 
+addtask run_lopper after do_unpack
 addtask run_lopper before do_generate_toolchain_file
 addtask run_lopper after do_prepare_recipe_sysroot
 
