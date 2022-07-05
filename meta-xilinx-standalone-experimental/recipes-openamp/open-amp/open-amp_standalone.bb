@@ -66,6 +66,22 @@ INHIBIT_PACKAGE_STRIP:armv7r:xilinx-standalone = '1'
 INHIBIT_PACKAGE_DEBUG_SPLIT:armv7r:xilinx-standalone = '1'
 PACKAGE_MINIDEBUGINFO:armv7r:xilinx-standalone = '1'
 
+# The order of lops is as follows:
+# 1. lop-load - This must be run first to ensure enabled lops and plugins
+#    can be used.
+# 2. lop-xlate-yaml - Ensure any following lops can be YAML
+# 3. imux - This is used to make sure the imux node has correct
+#    interrupt parent and interrupt-multiplex node is trimmed. This is
+#    present for all Xilinx Lopper runs, with or without OpenAMP. This
+#    is done first for all lop runs as the imux node may be referenced by
+#    later plugins.
+# 4. domain - domain processing should be done before OpenAMP as there
+#    can be nodes that are stripped out or modified based on the domain.
+# 5. OpenAMP - This lopper processing is done on top of the domain as
+#    noted due to domain reasons above.
+# 6. domain-prune - Only prune files AFTER all other processing is complete
+#    so that a lopper plugin or lop does not inadvertently process a
+#    non-existent node.
 OPENAMP_LOPPER_INPUTS:armv7r:xilinx-standalone  = " \
     -i ${OPENAMP_OVERLAY} \
     -i ${LOPS_DIR}/lop-load.dts \
