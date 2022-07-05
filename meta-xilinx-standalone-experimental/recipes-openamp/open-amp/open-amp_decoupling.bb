@@ -60,6 +60,22 @@ LOPS_DIR="${RECIPE_SYSROOT_NATIVE}/${PYTHON_SITEPACKAGES_DIR}/lopper/lops/"
 CHANNEL_INFO_FILE = "openamp-channel-info.txt"
 LOPPER_OPENAMP_OUT_DTB = "${WORKDIR}/openamp-lopper-output.dtb"
 
+# The order of lops is as follows:
+# 1. lop-load - This must be run first to ensure enabled lops and plugins
+#    can be used.
+# 2. lop-xlate-yaml - Ensure any following lops can be YAML
+# 3. imux - This is used to make sure the imux node has correct
+#    interrupt parent and interrupt-multiplex node is trimmed. This is
+#    present for all Xilinx Lopper runs, with or without OpenAMP. This
+#    is done first for all lop runs as the imux node may be referenced by
+#    later plugins.
+# 4. domain - domain processing should be done before OpenAMP as there
+#    can be nodes that are stripped out or modified based on the domain.
+# 5. OpenAMP - This lopper processing is done on top of the domain as
+#    noted due to domain reasons above.
+# 6. domain-prune - Only prune files AFTER all other processing is complete
+#    so that a lopper plugin or lop does not inadvertently process a
+#    non-existent node.
 OPENAMP_LOPPER_INPUTS:zynqmp:linux = "            \
     -i ${LOPS_DIR}/lop-a53-imux.dts               \
     -i ${LOPS_DIR}/lop-domain-linux-a53.dts       \
