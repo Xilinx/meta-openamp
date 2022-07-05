@@ -10,7 +10,7 @@ FW_LIB_DIR = "/lib/firmware"
 do_install:append() {
 	install -d ${D}${FW_LIB_DIR}
 	dest=${D}${FW_LIB_DIR}/
-	install -m 0644 ${FW_DEPLOY_DIR}/matrix_multiply.out ${dest}
+	install -m 0644 ${FW_DEPLOY_DIR}/matrix_multiplyd.out ${dest}
 	install -m 0644 ${FW_DEPLOY_DIR}/rpc_demo.out ${dest}
 	install -m 0644 ${FW_DEPLOY_DIR}/rpmsg-echo.out ${dest}
 
