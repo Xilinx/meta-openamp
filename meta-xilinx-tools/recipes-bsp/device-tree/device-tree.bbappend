@@ -1,11 +1,19 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI:append = " \
+    file://zynq-openamp.dtsi \
     file://zynqmp-openamp.dtsi \
     file://versal-openamp.dtsi \
 "
-
+do_configure:prepend:zynq() {
+	if [ ${ENABLE_OPENAMP_DTSI} = "1" ]; then
+		ln -sf ${WORKDIR}/zynq-openamp.dtsi ${WORKDIR}/openamp.dtsi
+	else
+		echo "ENABLE_OPENAMP_DTSI is not SET (${ENABLE_OPENAMP_DTSI})"
+	fi
+}
 do_configure:prepend:zynqmp() {
+
 	if [ ${ENABLE_OPENAMP_DTSI} = "1" ]; then
 		ln -sf ${WORKDIR}/zynqmp-openamp.dtsi ${WORKDIR}/openamp.dtsi
 	else
